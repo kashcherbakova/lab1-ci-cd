@@ -1,0 +1,37 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  dockerRegistryServiceConnection: 'dockerhub-connection'
+  imageRepository: 'shcherbakovaekaterina77/lab1-fastapi'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: 'latest'
+
+steps:
+
+  - task: UsePythonVersion@0
+    displayName: 'Set Python version'
+    inputs:
+      versionSpec: '3.13'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    displayName: 'Install dependencies'
+
+  - script: |
+      pytest -q
+    displayName: 'Run unit tests'
+
+  - task: Docker@2
+    displayName: 'Build and push Docker image'
+    inputs:
+      command: buildAndPush
+      containerRegistry: '$(dockerRegistryServiceConnection)'
+      repository: '$(imageRepository)'
+      dockerfile: '$(dockerfilePath)'
+      tags: |
+        $(tag)
