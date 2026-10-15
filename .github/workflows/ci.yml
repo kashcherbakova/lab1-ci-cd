@@ -38,7 +38,7 @@ jobs:
     needs: build-n-test
     uses: ./.github/workflows/docker-pack-n-push.yml
     with:
-      repository: shcherbakovaekaterina77/lab1-ci-cd
+      repository: shcherbakovaekaterina77/lab1-fastapi
       tag: latest
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
