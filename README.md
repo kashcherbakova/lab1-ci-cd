@@ -51,3 +51,5 @@ docker run -d -p 8000:8000 --name lab1-fastapi-container lab1-fastapi
 
 ## Swagger UI:
 http://localhost:8000/docs
+
+Тестування GitHub Actions у гілці feature/lab2-test.
